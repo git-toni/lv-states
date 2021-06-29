@@ -1,6 +1,7 @@
 defmodule LvStates.WithSearch do
   import LvStates.Utils
   alias Phoenix.LiveView.Socket
+  alias Phoenix.LiveView
 
   @initial_state %{
     searching: false,
@@ -30,13 +31,21 @@ defmodule LvStates.WithSearch do
       end
       def set_field(%Socket{} = socket, field, new_value) do
         field = LvStates.Utils.key_atomize(field)
+        oldGlobal = 
+          socket
+          |> Kernel.get_in([
+            Access.key(:assigns, %{}), 
+            Access.key(unquote(state_key), %{})
+          ])
+        newGlobal = 
+          oldGlobal 
+          |> Kernel.put_in([
+            Access.key(field, %{})
+          ], new_value)
+
+
         socket
-        |> Kernel.put_in([
-          Access.key(:assigns, %{}), 
-          Access.key(unquote(state_key), %{}),
-          Access.key(field, %{})], 
-          new_value
-        )
+        |> LiveView.assign(unquote(state_key), newGlobal)
       end
       def set_query(%Socket{} = socket, field, query) do
         new_search_field = %{searching: true, query: query}
@@ -62,6 +71,7 @@ defmodule LvStates.WithSearch do
                     )
                     when byte_size(query) == 0 do
                       socket = socket |> reset_query(unquote(field))
+                      fetch(socket)
                       {:noreply, socket}
                     end
                     def handle_event(
@@ -71,6 +81,7 @@ defmodule LvStates.WithSearch do
                     )
                     when is_nil(query) do
                       socket = socket |> reset_query(unquote(field))
+                      fetch(socket)
                       {:noreply, socket}
                     end
                     def handle_event(
@@ -80,6 +91,7 @@ defmodule LvStates.WithSearch do
                     )
                      do
                       socket = socket |> set_query(unquote(field), query)
+                      fetch(socket)
                       {:noreply, socket}
                     end
 

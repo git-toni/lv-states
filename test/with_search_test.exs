@@ -5,6 +5,7 @@ defmodule WithSearchTest do
 
   defmodule Searchable do
     use LvStates.WithSearch, [:username]
+    def fetch(socket), do: socket
   end
 
   @initial_state LvStates.WithSearch.initial_state
@@ -33,7 +34,7 @@ defmodule WithSearchTest do
         %{username: %{searching: true, query: query}}
       }
     }
-    assert Searchable.set_query(@test_socket, @target, query) == expected
+    assert Searchable.set_query(@test_socket, @target, query).assigns == expected.assigns
   end
 
   test "reset_query/2" do
@@ -42,7 +43,7 @@ defmodule WithSearchTest do
         %{username: %{searching: false, query: nil}}
       }
     }
-    assert Searchable.reset_query(@test_socket, @target) == expected
+    assert Searchable.reset_query(@test_socket, @target).assigns == expected.assigns
   end
 
   test "handle_event(\"search-\") when query == 0" do
@@ -50,7 +51,8 @@ defmodule WithSearchTest do
     expected = %Socket{ assigns: %{ 
       @state_key => 
         %{username: %{searching: false, query: nil}}
-      }
+      },
+      changed: %{ @state_key => @test_socket.assigns[@state_key] }
     }
     assert Searchable.handle_event("search-#{@target}", %{"query" => query}, @test_socket) 
     == {:noreply, expected}
@@ -60,7 +62,8 @@ defmodule WithSearchTest do
     expected = %Socket{ assigns: %{ 
       @state_key => 
         %{username: %{searching: true, query: query}}
-      }
+      },
+      changed: %{ @state_key => @test_socket.assigns[@state_key] }
     }
     assert Searchable.handle_event("search-#{@target}", %{"query" => query}, @test_socket) 
     == {:noreply, expected}
