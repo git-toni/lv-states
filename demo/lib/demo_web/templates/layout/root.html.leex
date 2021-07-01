@@ -5,26 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Demo", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "lv-states", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+
+    <link href="<%= Routes.static_path(@conn, "/vendor/tailwind.min.css") %>" rel="stylesheet">
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
+  <body class="bg-gray-700 text-gray-200 w-full py-4 flex flex-col items-center">
+    <header class="flex flex-col items-center text-4xl p-3 text-purple-400 mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hierarchy" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="5" r="2" />
+        <circle cx="5" cy="19" r="2" />
+        <circle cx="19" cy="19" r="2" />
+        <path d="M6.5 17.5l5.5 -4.5l5.5 4.5" />
+        <line x1="12" y1="7" x2="12" y2="13" />
+      </svg>
+      <span>
+      lv-states
+      </span>
     </header>
-    <%= @inner_content %>
+    <div class="flex w-full justify-center text-lg">
+      Common state-management for Phoenix Liveview Sockets needed by interactive applications.
+    </div>
+    <h2 class="flex w-full justify-center text-lg text-purple-400 mt-10 mb-4 items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt h-7 w-7 text-yellow-500" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+      </svg>
+      Demo
+    </h2>
+    <div class="text-base mb-4">
+      The following table displays a small <a href="https://www.kaggle.com/geoffnel/evs-one-electric-vehicle-dataset" class="text-purple-400" target="_blank">database of EV cars</a> available in the market.
+      Use the filters provided by <b>lv-states</b> to filter the data.
+    </div>
+    <div class="flex w-full">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>
