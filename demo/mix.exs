@@ -45,10 +45,16 @@ defmodule Demo.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:csv, "~> 2.4.1"},
-      {:lv_states, path: "../"}
+      {:lv_states, path: library_path()}
     ]
   end
 
+  def library_path do
+    case Mix.env() do
+      :dev -> "../"
+      :prod -> "./lv_states"
+    end
+  end
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, to install project dependencies and perform other setup tasks, run:
   #

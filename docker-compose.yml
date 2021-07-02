@@ -1,0 +1,12 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  lv-states:
+    build: 
+      context: .
+      args:
+        - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+    image: lv-states:latest
+    ports:
+      - "4000:4000"
+    env_file: demo/.env
+    network_mode: host
