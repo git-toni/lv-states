@@ -46,3 +46,4 @@ COPY --from=phx-builder /opt/app/mix.* /opt/app/
 
 USER default
 
+CMD ["mix", "phx.server"]

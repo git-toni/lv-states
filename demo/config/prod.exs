@@ -10,8 +10,9 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :demo, DemoWeb.Endpoint,
-  url: [host: "localhost", port: String.to_integer(System.get_env("PORT") || "4000")],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "lv-states.fly.dev", port: String.to_integer(System.get_env("PORT") || "4000")],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  transport_options: [socket_opts: [:inet6]]
 
 # Do not print debug messages in production
 config :logger, level: :info
