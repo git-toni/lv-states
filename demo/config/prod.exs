@@ -1,5 +1,11 @@
 use Mix.Config
 
+host_url = 
+  case System.get_env("DOCKER_DEBUG") do
+    "true" -> "localhost"
+    _ -> "lv-states.fly.dev"
+  end
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,7 +16,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :demo, DemoWeb.Endpoint,
-  url: [host: "lv-states.fly.dev", port: String.to_integer(System.get_env("PORT") || "4000")],
+  url: [host: host_url, port: String.to_integer(System.get_env("PORT") || "4000")],
   cache_static_manifest: "priv/static/cache_manifest.json",
   transport_options: [socket_opts: [:inet6]]
 

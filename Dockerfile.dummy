@@ -1,3 +1,4 @@
+# For testing/debugging purposes
 FROM bitwalker/alpine-elixir-phoenix:latest AS phx-builder
 LABEL stage=builder
 
@@ -50,6 +51,6 @@ COPY --from=phx-builder /opt/app/mix.* /opt/app/
 #COPY --from=phx-builder /opt/app /opt/app
 # be warned, this will however copy over non-build files
 
-#USER default
+USER default
 
 CMD ["mix", "phx.server"]

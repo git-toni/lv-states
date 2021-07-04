@@ -52,7 +52,7 @@ defmodule Demo.MixProject do
   def library_path do
     case Mix.env() do
       :dev -> "../"
-      :prod -> "./lv_states"
+      :prod -> "deps/lv_states"
     end
   end
   # Aliases are shortcuts or tasks specific to the current project.

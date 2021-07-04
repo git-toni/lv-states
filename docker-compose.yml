@@ -5,6 +5,7 @@ services:
       context: .
       args:
         - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+        - DOCKER_DEBUG=true
     image: lv-states:latest
     ports:
       - "4000:4000"
