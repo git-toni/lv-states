@@ -1,3 +1,5 @@
+![CI/CD](https://github.com/git-toni/lv-states/actions/workflows/main.yml/badge.svg)
+[![Hex.pm](https://img.shields.io/hexpm/v/lv_states.svg?color=blue)]()
 # Lv-States
 
 **lv-states** (short for LiveView States) provides a handful of state management helpers for [Phoenix LiveView Sockets](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Socket.html) with the aim of simplifying common needs of client <> server communication present in interactive applications.
