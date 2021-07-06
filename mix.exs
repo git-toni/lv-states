@@ -10,8 +10,10 @@ defmodule LvStates.MixProject do
       deps: deps(),
       # Docs
       name: "lv-states",
+      description: description(),
       source_url: "https://github.com/git-toni/lv-states",
       homepage_url: "https://github.com/git-toni/lv-states",
+      package: package(),
       docs: [
         extras: ["README.md"]
       ]
@@ -29,6 +31,9 @@ defmodule LvStates.MixProject do
       {:phoenix_live_view, "~> 0.15.1"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
+  end
+  defp description() do
+    "Common state-management for Phoenix Liveview Sockets needed by interactive applications."
   end
   defp package do
     [
