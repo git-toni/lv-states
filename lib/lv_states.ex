@@ -1,18 +1,11 @@
 defmodule LvStates do
   @moduledoc """
-  Documentation for `LvStates`.
+  `LvStates` help LiveView craft with useful state-management utils.
+
+
+  Currently there is one available feature:
+
+    * `LvStates.WithSearch`
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> LvStates.hello()
-      :world
-
-  """
-  def hello do
-    :naaaaa
-  end
 end

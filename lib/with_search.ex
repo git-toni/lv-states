@@ -1,4 +1,31 @@
 defmodule LvStates.WithSearch do
+  @moduledoc """
+  `LvStates.WithSearch` adds a **:search** subset of state
+  to the main `LiveView.Socket`.
+
+  It is useful in situations where we want our application to
+  query our data most typically stemming from a client search input.
+  Using the `LvStates.WithSearch` macro will have two consequences for our `LiveView.Socket`:
+  1) It is populated with a `:search` field containing `%{searching: false, query: nil}`.
+
+  2) A new event handler is generated:
+  ```
+    def handle_event("search-model", %{"query" => query}, socket)
+  ```
+
+  And lastly an indirect consequence is that `LvStates.WithSearch` assumes that our `LiveView` implements the following method:
+  ```
+    def fetch(%LiveView.Socket{})
+  ```
+
+  **Note**: if the assumed `fetch/1` function is not implemented the functionality will not work as expected.
+
+  ## Examples
+  
+      defmodule CarInventory do
+        use LvStates.WithSearch, [:model]
+      end
+  """
   import LvStates.Utils
   alias Phoenix.LiveView.Socket
   alias Phoenix.LiveView
@@ -9,7 +36,9 @@ defmodule LvStates.WithSearch do
   }
   @state_key :search
 
+  @doc false
   def initial_state, do: @initial_state
+  @doc false
   def state_key, do: @state_key
 
   defmacro __using__(opts) do
