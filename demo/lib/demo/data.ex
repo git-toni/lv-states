@@ -1,5 +1,6 @@
 defmodule Demo.Data do
   alias Demo.Filter
+  alias Phoenix.LiveView.Socket
   @moduledoc """
   Demo.Data provides with example browseable data.
   """
@@ -13,12 +14,19 @@ defmodule Demo.Data do
     "evdata.csv"
     |> Path.expand(__DIR__)
     |> File.stream!
-    |> CSV.decode!(headers: true) 
+    |> CSV.decode!(headers: true)
     |> Stream.map(&atomize/1)
     |> Enum.to_list
   end
-  def fetch(filters) do
+  def fetch(%Socket{} = socket) do
+    query = socket.assigns.search.main_query
+    brand_filter = socket.assigns.lvs_filters.brand
     load_data
-    |> Filter.query_filter(filters)
+    |> Filter.query_filter(query)
+    |> Filter.brand_filter(brand_filter)
+  end
+  def read_brands do
+    Enum.map(load_data, &(&1."Brand"))
+    |> Enum.uniq
   end
 end
