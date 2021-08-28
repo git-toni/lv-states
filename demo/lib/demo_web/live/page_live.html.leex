@@ -1,40 +1,45 @@
-<div class="flex flex-col px-32 w-full items-center">
-  <form phx-change="search-main_query" class="mb-3">
-    <input
-      type="text" 
-      autocomplete="off"
-      name="query"
-      class="p-2 rounded-lg bg-gray-700 border border-gray-400 w-72"
-      phx-debounce="300"
-      value="<%= @search.main_query.query %>"
-      placeholder="&#x1F50E;&emsp;Search by Brand or Model">
-  </form>
-  <div class="flex flex-col w-9/12">
-    <div class="border rounded-lg flex justify-between py-2 px-4 text-purple-400 font-semibold">
-      <span class="w-20">Brand</span>
-      <span class="w-64">Model</span>
-      <span class="w-28">Range</span>
-      <span class="w-28">Body Type</span>
-      <span class="w-28">Price (€)</span>
-      <span class="w-28">Rapid charge</span>
-      <span class="w-32">Fastcharge KmH</span>
-    </div>
-    <div class="overflow-y-scroll px-1 " style="height: 32em;">
-      <%= for r <- @results do %>
-        <div class="border rounded-lg flex justify-between py-2 px-4 my-1 shadow-lg hover:bg-gray-800 cursor-pointer">
-          <span class="w-20"><%= r."Brand" %></span>
-          <span class="w-64"><%= r."Model" %></span>
-          <span class="w-28"><%= r."Range_Km" %></span>
-          <span class="w-28"><%= r."BodyStyle" %></span>
-          <span class="w-28"><%= r."PriceEuro" %></span>
-          <span class="w-28"><%= r."RapidCharge" %></span>
-          <span class="w-28"><%= r."FastCharge_KmH" %></span>
-        </div>
-      <% end %>
+<div class="flex px-20 w-full">
+  <div class="w-1/6 flex flex-col mr-4">
+    <form phx-change="search-main_query" class="mb-3">
+      <input
+        type="text"
+        autocomplete="off"
+        name="query"
+        class="p-2 rounded-lg bg-gray-700 border border-gray-400 w-full"
+        phx-debounce="300"
+        value="<%= @search.main_query.query %>"
+        placeholder="&#x1F50E;&emsp;Search by Brand or Model">
+    </form>
+    <%= render DemoWeb.LayoutView, "filters/brand.html", socket: @socket, brands: @brands, selected: @lvs_filters.brand.value %>
+  </div>
+  <div class="flex-grow">
+    <div class="flex flex-col w-full">
+      <div class="border rounded-lg flex justify-between py-2 px-4 text-purple-400 font-semibold">
+        <span class="w-20">Brand</span>
+        <span class="w-64">Model</span>
+        <span class="w-28">Range</span>
+        <span class="w-28">Body Type</span>
+        <span class="w-28">Price (€)</span>
+        <span class="w-28">Rapid charge</span>
+        <span class="w-32">Fastcharge KmH</span>
+      </div>
+      <div class="overflow-y-scroll px-1 " style="height: 32em;">
+        <%= for r <- @results do %>
+          <div class="border rounded-lg flex justify-between py-2 px-4 my-1 shadow-lg hover:bg-gray-800 cursor-pointer">
+            <span class="w-20"><%= r."Brand" %></span>
+            <span class="w-64"><%= r."Model" %></span>
+            <span class="w-28"><%= r."Range_Km" %></span>
+            <span class="w-28"><%= r."BodyStyle" %></span>
+            <span class="w-28"><%= r."PriceEuro" %></span>
+            <span class="w-28"><%= r."RapidCharge" %></span>
+            <span class="w-28"><%= r."FastCharge_KmH" %></span>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
-<%= render DemoWeb.LayoutView, "socket-renderer.html", search: @search %>
+<%= render DemoWeb.LayoutView, "socket-renderer.html", lvs_filters: @lvs_filters, search: @search %>
 
 <div class="absolute top-5 right-5 z-10">
 <iframe src="https://ghbtns.com/github-btn.html?user=git-toni&repo=lv-states&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>

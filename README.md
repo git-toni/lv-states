@@ -67,3 +67,9 @@ You can now comfortably point your client events to the new event handler, Eg.
 For a full example please see the source of the [demo](/demo)
 
 
+## TODO
+- Migrate phoenix demo app to esbuild
+- Use Utils.socket_set_field for WithSearch helper
+- Create test utils functions to obtain useful structs
+- Check that values added are binary not nil
+- Compilation-time check that "fetch" or dynamic fetcher function exists in the host module
