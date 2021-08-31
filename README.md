@@ -6,12 +6,15 @@
 
 See it in action at [https://lv-states.fly.dev](https://lv-states.fly.dev)
 
+### Documentation
+Read the full documentation at https://hexdocs.pm/lv_states/
+
 ### Installation
 
 ```elixir
 def deps do
   [
-    {:lv_states, "~> 0.1.0"}
+    {:lv_states, "~> 0.1.1"}
   ]
 end
 ```
@@ -29,29 +32,6 @@ defmodule CarInventory do
 end
 ```
 
-The use of `LvStates.WithSearch` in this case has two consequences:
-
-1. The *LiveView.Socket* is populated with a new Map `search`.
-```elixir
-%LiveView.Socket: %{
-  assigns: %{
-    #...
-    search: %{
-      model: %{
-        searching: false,
-        query: nil,
-      }
-    }
-  }
-}
-```
-
-2. A new event handler is added to the client module (ie `CarInventory`)
-
-```elixir
-def handle_event("search-model", %{"query" => query}, socket), do:...
-```
-
 You can now comfortably point your client events to the new event handler, Eg.
 ```leex
   <form phx-change="search-model">
@@ -66,6 +46,33 @@ You can now comfortably point your client events to the new event handler, Eg.
 
 For a full example please see the source of the [demo](/demo)
 
+## WithFilter
+
+Useful for multi-value fields.
+
+### Usage
+
+```elixir
+defmodule CarInventory do
+  use LvStates.WithFilter, [brand: :multiple]
+  #...rest of functions
+end
+```
+Send events from a collection of options to the event handler like this:
+
+```leex
+<%= for b <- @brands do %>
+  <div
+    phx-click="lvs-filter-set"
+    phx-value-field="brand"
+    phx-value-value="<%= b %>"
+    >
+    <%= b %>
+  </div>
+<% end %> %>
+```
+
+For a full example please see the source of the [demo](/demo)
 
 ## TODO
 - Migrate phoenix demo app to esbuild
