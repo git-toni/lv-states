@@ -14,7 +14,7 @@
      overflow-y-auto
      no-scrollbar
      ">
-  <div class="font-bold text-center">search socket state</div>
+  <div class="font-bold text-center">LVS socket state</div>
   <pre class="text-sm">
     <%= Map.merge(@lvs_filters, @search) |> Jason.encode!(pretty: true) %>
   </pre>
