@@ -26,3 +26,5 @@ lv_states-*.tar
 # Temporary files for e.g. tests
 /tmp
 **/.env
+
+/demo/assets/node_modules
