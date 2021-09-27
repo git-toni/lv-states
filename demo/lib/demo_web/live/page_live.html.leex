@@ -1,5 +1,6 @@
 <div class="flex px-20 w-full">
   <div class="w-1/6 flex flex-col mr-4">
+    <%= render DemoWeb.LayoutView, "socket-renderer.html", lvs_filters: @lvs_filters, search: @search %>
     <form phx-change="search-main_query" class="mb-3">
       <input
         type="text"
@@ -8,7 +9,7 @@
         class="p-2 rounded-lg bg-gray-700 border border-gray-400 w-full"
         phx-debounce="300"
         value="<%= @search.main_query.query %>"
-        placeholder="&#x1F50E;&emsp;Search by Brand or Model">
+        placeholder="&#x1F50E;&emsp;Search by Model">
     </form>
     <%= render DemoWeb.LayoutView, "filters/brand.html", socket: @socket, brands: @brands, selected: @lvs_filters.brand.value %>
   </div>
@@ -39,8 +40,7 @@
     </div>
   </div>
 </div>
-<%= render DemoWeb.LayoutView, "socket-renderer.html", lvs_filters: @lvs_filters, search: @search %>
 
-<div class="absolute top-5 right-5 z-10">
+<div class="fixed top-5 right-5 z-10">
 <iframe src="https://ghbtns.com/github-btn.html?user=git-toni&repo=lv-states&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
