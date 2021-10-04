@@ -16,6 +16,8 @@ defmodule Demo.Data do
     |> File.stream!
     |> CSV.decode!(headers: true)
     |> Stream.map(&atomize/1)
+    |> Stream.with_index()
+    |> Stream.map(fn {v, i} -> Map.put(v, :id, i) end)
     |> Enum.to_list
   end
   def fetch(%Socket{} = socket) do
